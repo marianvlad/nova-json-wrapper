@@ -101,7 +101,7 @@ class JsonWrapper extends Field
 
         if ($model->exists) {
 
-            $originalValues = json_decode($model->getOriginal($this->attribute), true) ?? [];
+            $originalValues = is_array($model->getOriginal($this->attribute)) ? $model->getOriginal($this->attribute) : json_decode($model->getOriginal($this->attribute), true) ?? [];
 
             $clone->setRawAttributes(
                 collect($originalValues)->only($this->fields->map->attribute->filter())->toArray()
